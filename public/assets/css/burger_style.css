@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+#burger-header {
+  height: 400px;
+  width: 400px;
+}
+
+button {
+  float: right;
+}
+
+form {
+  display: inline;
+}
