@@ -5,25 +5,23 @@ var burger = require("../models/burger.js");
 
 // Home page route
 router.get("/", function(req, res) {
-  burger.all(function(result) {
-    res.render("index", { burger: result });
-  });
-});
-
-
-// See all data in api route
-router.get("/api", function(req, res) {
-  burger.all(function(result) {
-    res.json(result);
+  burger.all(function(data) {
+    var hbsObject = {
+      burger: data
+  };
+  console.log(hbsObject);
+  res.render("index", hbsObject);
   });
 });
 
 
 // Add a new burger
 router.post("/api/burgers", function(req, res) {
-  const burgerName = req.body.data.burger_name;
-
-  burger.create(burgerName, function(result) {
+  burger.create([
+    "burger_name", "devoured" 
+  ], [
+    req.body.burger_name, req.body.devoured
+  ], function(result) {
     res.json({ id: result.insertId });
   });
 });
@@ -31,10 +29,18 @@ router.post("/api/burgers", function(req, res) {
 
 // Devour burger
 router.put("/api/burgers/:id", function(req, res) {
-  const id = req.params.id;
+  var condition = "id = " + req.params.id;
+
+  console.log("condition", condition);
   
-  burger.update(id, req.body.devoured, function(result) {
-  	res.json({ changed: result.changedRows })
+  burger.update({
+   "devoured": req.body.devoured
+  }, condition, function(result) {
+    if (result.changedRows == 0) {
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
   });
 });
 

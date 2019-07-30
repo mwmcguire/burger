@@ -7,11 +7,3 @@ body {
   height: 400px;
   width: 400px;
 }
-
-button {
-  float: right;
-}
-
-form {
-  display: inline;
-}

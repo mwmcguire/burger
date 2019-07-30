@@ -1,34 +1,34 @@
 const connection = require("./connection.js");
 
-// Methods that will execute the necessary MySQL commands in the controllers
-const orm = {
-  // Select all data
+
+var orm = {
   selectAll: function(table, cb) {
-    const queryString = `SELECT * FROM ${table}`;
-    connection.query(queryString, function(err, data) {
+    var queryString = "SELECT * FROM ??";
+    connection.query(queryString, table, function (err, result) {
       if (err) throw err;
-      cb(data);
+      cb(result);
     });
   },
-
-  // Insert a new row of data
-  insertOne: function(table, input, cb) {
-    const queryString = `INSERT INTO ${table} (burger_name) VALUES (?);`;
-    connection.query(queryString, [input], function(err, data) {
+  insertOne: function(col, value, cb) {
+    var queryString = "INSERT INTO burgers (??) VALUES(?);";
+    connection.query(queryString, [col, value], function (err, result) {
       if (err) throw err;
-      cb(data);
+      cb(result);
     });
   },
-
-  // Update data for a single entry
-  updateOne: function(table, column, value, id, cb) {
-    const queryString = `UPDATE ${table} SET ${column} = ${value} WHERE id = ${id}`;
-    connection.query(queryString, function(err, data) {
+  updateOne: function(table, UPD_col, newValue, WHERE_col, id_value, cb) {
+    var queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+    connection.query(queryString, [table, UPD_col, newValue, WHERE_col, id_value], function (err, result) {
       if (err) throw err;
-      cb(data);
+      cb(result);
+    });
+  },
+  deleteOne: function(table, WHERE_col, id_value, cb) {
+    var queryString = "DELETE FROM ?? WHERE ?? = ?";
+    connection.query(queryString, [table, WHERE_col, id_value], function (err, result) {
+      if (err) throw err;
+      cb(result);
     });
   }
 }
-
-// Export the orm object for the model
 module.exports = orm;
