@@ -12,10 +12,10 @@
       <hr>
       <ul class="text-center">
         {{#each burger}}
-          {{#unless this.devoured}}
+          {{#unless devoured}}
           <li>
               <h4>{{this.burger_name}}</h4>
-              <button type="submit" class="btn btn-success" id="devour-btn">Devour</button>
+              <button type="submit" class="btn btn-success" id="devour-btn" data-id="{{this.id}}">Devour</button>
           </li>
           {{/unless}}
         {{/each}}
@@ -28,10 +28,10 @@
       <hr>
         <ul class="text-center">
           {{#each burger}}
-            {{#if this.devoured}}
+            {{#if devoured}}
             <li>
               <h4>{{this.burger_name}}</h4>
-              <button type="submit" class="btn btn-sm btn-danger">Delete burger</button>
+              <button type="submit" class="btn btn-sm btn-danger" id="delete-btn" data-id="{{this.id}}">Delete burger</button>
             </li>
             {{/if}}
           {{/each}}
@@ -46,7 +46,7 @@
   
   <div class="form-group">
     <label for="input">Burger name:</label>
-    <input type="text" name="burger_name" id="burger_input">
+    <input type="text" name="burger_name" id="burger_name">
   </div>
 
   <button type="submit" class="btn btn-sm btn-primary" id="submit-btn">Add burger</button>
